@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Exists In Object</title>
+</head>
+<body>
+    <h1>Write a function to check if a property exists in a JS object using atleast 2 different ways- 3 Three possible 
+        solutions are: ‘hasOwnProperty()’ method, ‘in’ operator, and comparing the property with ‘undefined’- However, the 
+        **tricky part** here is that if there exists a property whose value is = ‘undefined’, the thirst solution might fail. Eg. 
+        propExists({x:'a',y:'b',z:undefined},'z’)- The function should accept two arguments: an object and a property-name 
+        string, and return true if found, and false otherwise.</h1>
+    <script>
+        function propExists(obj, propName) {
+  // Solution 1: Using hasOwnProperty() method
+  const solution1 = obj.hasOwnProperty(propName);
+
+  // Solution 2: Using the in operator
+  const solution2 = propName in obj;
+
+  // Solution 3: Comparing the property with undefined
+  const solution3 = obj[propName] !== undefined;
+
+  // Handle the tricky part: Check if the property value is 'undefined'
+  if (obj[propName] === undefined && !obj.hasOwnProperty(propName)) {
+    // If the property is explicitly set to 'undefined', consider it as existing
+    return true;
+  }
+
+  // Return true if at least one solution is true, otherwise, return false
+  return solution1 || solution2 || solution3;
+}
+
+// Test cases
+console.log(propExists({ x: 'a', y: 'b', z: undefined }, 'z')); // Output: true
+console.log(propExists({ a: 1, b: 2, c: 3 }, 'b')); // Output: true
+console.log(propExists({ x: 'a', y: 'b', z: undefined }, 'w')); // Output: false
+
+    </script>
+</body>
+</html>
